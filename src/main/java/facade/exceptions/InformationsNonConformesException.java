@@ -1,4 +1,4 @@
-package modele;
+package facade.exceptions;
 
 public class InformationsNonConformesException extends Exception {
 }

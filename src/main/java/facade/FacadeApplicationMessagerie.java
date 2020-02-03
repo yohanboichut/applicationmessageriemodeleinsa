@@ -1,4 +1,6 @@
-package modele;
+package facade;
+
+import facade.exceptions.*;
 
 import java.util.Collection;
 
@@ -66,7 +68,7 @@ public interface FacadeApplicationMessagerie {
      * @throws UtilisateurNonConnecteException : l'utilisateur spécifié n'est pas connecté
      */
 
-    Collection<MessageDTO> getMesMessages(long idUtilisateur) throws UtilisateurNonConnecteException;
+    Collection<MessageLight> getMesMessages(long idUtilisateur) throws UtilisateurNonConnecteException;
 
 
     /**
@@ -76,11 +78,11 @@ public interface FacadeApplicationMessagerie {
      * @throws UtilisateurNonConnecteException : l'utilisateur spécifié n'est pas connecté
      */
 
-    Collection<UtilisateurDTO> getListeDesInscrits(long idUtilisateur) throws UtilisateurNonConnecteException, UtilisateurInexistantException;
+    Collection<UtilisateurLight> getListeDesInscrits(long idUtilisateur) throws UtilisateurNonConnecteException, UtilisateurInexistantException;
 
 
 
-    MessageDTO getMessageById(long idUtilisateur, long idMessage) throws UtilisateurNonConnecteException,
+    MessageLight getMessageById(long idUtilisateur, long idMessage) throws UtilisateurNonConnecteException,
             MessageInexistantException, UtilisateurInexistantException;
 
 

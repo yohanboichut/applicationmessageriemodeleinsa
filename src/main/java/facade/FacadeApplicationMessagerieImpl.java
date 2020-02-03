@@ -1,4 +1,10 @@
-package modele;
+package facade;
+
+import facade.exceptions.*;
+import modele.Message;
+import modele.MessageImpl;
+import modele.Utilisateur;
+import modele.UtilisateurImpl;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -7,7 +13,7 @@ public class FacadeApplicationMessagerieImpl implements FacadeApplicationMessage
 
     private static Map<Long, Utilisateur> mapInscrits =new HashMap<>();
 
-    private static Map<Long,Message> messagesEnvoyes = new HashMap<>();
+    private static Map<Long, Message> messagesEnvoyes = new HashMap<>();
 
 
 
@@ -132,16 +138,16 @@ public class FacadeApplicationMessagerieImpl implements FacadeApplicationMessage
     }
 
     @Override
-    public Collection<MessageDTO> getMesMessages(long idUtilisateur) throws UtilisateurNonConnecteException {
+    public Collection<MessageLight> getMesMessages(long idUtilisateur) throws UtilisateurNonConnecteException {
 
-        Collection<MessageDTO> messageDTOS = messagesEnvoyes.values().stream().filter(e ->
-                e.getDestinataire().getId()==idUtilisateur ).map(e -> MessageDTOImpl.creer(e)).collect(Collectors.toList());
+        Collection<MessageLight> messageLights = messagesEnvoyes.values().stream().filter(e ->
+                e.getDestinataire().getId()==idUtilisateur ).map(e -> MessageLightImpl.creer(e)).collect(Collectors.toList());
 
-        return messageDTOS;
+        return messageLights;
     }
 
     @Override
-    public Collection<UtilisateurDTO> getListeDesInscrits(long idUtilisateur) throws UtilisateurNonConnecteException, UtilisateurInexistantException {
+    public Collection<UtilisateurLight> getListeDesInscrits(long idUtilisateur) throws UtilisateurNonConnecteException, UtilisateurInexistantException {
 
         Utilisateur u = this.getUtilisateur(idUtilisateur);
 
@@ -149,11 +155,11 @@ public class FacadeApplicationMessagerieImpl implements FacadeApplicationMessage
             throw new UtilisateurNonConnecteException();
         }
 
-        return mapInscrits.values().stream().map(e-> UtilisateurDTOImpl.creer(e)).collect(Collectors.toList());
+        return mapInscrits.values().stream().map(e-> UtilisateurLightImpl.creer(e)).collect(Collectors.toList());
     }
 
     @Override
-    public MessageDTO getMessageById(long idUtilisateur, long idMessage) throws UtilisateurNonConnecteException, MessageInexistantException, UtilisateurInexistantException {
+    public MessageLight getMessageById(long idUtilisateur, long idMessage) throws UtilisateurNonConnecteException, MessageInexistantException, UtilisateurInexistantException {
         Utilisateur u = this.getUtilisateur(idUtilisateur);
 
         if (!utilisateursConnectes.contains(u)) {
@@ -165,7 +171,7 @@ public class FacadeApplicationMessagerieImpl implements FacadeApplicationMessage
         Message m = this.getMessage(idMessage);
 
 
-        return MessageDTOImpl.creer(m);
+        return MessageLightImpl.creer(m);
     }
 
     private Message getMessage(long idMessage) throws MessageInexistantException {
