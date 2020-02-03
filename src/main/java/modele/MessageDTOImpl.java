@@ -15,6 +15,8 @@ public class MessageDTOImpl implements MessageDTO {
         this.id = message.getId();
 
         this.envoyeur = UtilisateurDTOImpl.creer(message.getEnvoyeur());
+        this.destinataire = UtilisateurDTOImpl.creer(message.getDestinataire());
+        this.contenu = message.getContenu();
     }
 
 
@@ -24,7 +26,7 @@ public class MessageDTOImpl implements MessageDTO {
 
     @Override
     public long getId() {
-        return 0;
+        return this.id;
     }
 
     @Override
