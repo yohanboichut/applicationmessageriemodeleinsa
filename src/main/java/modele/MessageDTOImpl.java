@@ -29,16 +29,16 @@ public class MessageDTOImpl implements MessageDTO {
 
     @Override
     public String getContenu() {
-        return null;
+        return contenu;
     }
 
     @Override
     public UtilisateurDTO getEnvoyeur() {
-        return null;
+        return envoyeur;
     }
 
     @Override
     public UtilisateurDTO getDestinataire() {
-        return null;
+        return destinataire;
     }
 }
